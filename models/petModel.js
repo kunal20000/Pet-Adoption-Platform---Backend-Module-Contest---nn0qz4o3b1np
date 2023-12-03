@@ -5,12 +5,12 @@ const petSchema = new mongoose.Schema({
   // TODO: Define the 'name' field with type String and required validation
   name:{
     type: String,
-    required; true,
+    required: true,
   },
   // TODO: Define the 'species' field with type String and required validation
   species:{
     type: String,
-    required; true,
+    required: true,
   },
   // TODO: Define the 'age' field with type String and required validation
   age:{
