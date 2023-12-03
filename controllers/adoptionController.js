@@ -42,9 +42,8 @@ exports.getUserApplications = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    // TODO: Fetch applications by user ID from the database
-   
-     const userApplications = await Application.find({ applicantEmail: userId });
+    // Fetch applications by user ID from the database
+    const userApplications = await Application.find({ applicantEmail: userId });
 
     // Respond with the list of user applications
     res.status(200).json({ applications: userApplications });
