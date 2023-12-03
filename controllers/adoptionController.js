@@ -7,11 +7,31 @@ exports.applyForAdoption = async (req, res) => {
   const { applicantName, applicantEmail } = req.body;
 
   try {
-    // TODO: Find the pet by ID
-    // TODO: Check if the pet is available for adoption
-    // TODO: Create a new application instance
-    // TODO: Save the new application to the database
-    // TODO: Respond with the application submission message and details
+   // Find the pet by ID
+    const pet = await Pet.findById(petId);
+
+    // Check if the pet is available for adoption
+    if (!pet || pet.adoptionStatus !== 'available') {
+      return res.status(404).json({ message: 'Pet not available for adoption' });
+    }
+
+    // Create a new application instance
+    const newApplication = new Application({
+      applicantName,
+      applicantEmail,
+      pet: petId,
+      status: 'pending', // Assuming you want to set the initial status as pending
+    });
+
+    // Save the new application to the database
+    await newApplication.save();
+
+    // Respond with the application submission message and details
+    res.status(201).json({
+      message: 'Application submitted successfully',
+      application: newApplication,
+    });
+    
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -23,7 +43,11 @@ exports.getUserApplications = async (req, res) => {
 
   try {
     // TODO: Fetch applications by user ID from the database
-    // TODO: Respond with the list of user applications
+   
+     const userApplications = await Application.find({ applicantEmail: userId });
+
+    // Respond with the list of user applications
+    res.status(200).json({ applications: userApplications });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
