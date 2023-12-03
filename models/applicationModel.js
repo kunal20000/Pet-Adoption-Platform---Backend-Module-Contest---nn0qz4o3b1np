@@ -14,14 +14,14 @@ const applicationSchema = new mongoose.Schema({
   // TODO: Define the 'pet' field with type mongoose.Schema.Types.ObjectId, ref to pet, and required validation
   pet:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: pet,
+    ref: 'Pet',
     required: true,
   },
   // TODO: Define the 'status' field with type String, enum ['pending', 'approved', 'rejected'], and default value
   status:{
     type: String,
     enum: ['pending', 'approved', 'rejected'],
-    default: true,
+    default: 'pending',
   },
 });
 
